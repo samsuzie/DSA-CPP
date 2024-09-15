@@ -1,0 +1,17 @@
+{
+    public:
+    queue<int> rev(queue<int> q)
+    {
+      stack<int>s;
+      while(!q.empty()){
+          s.push(q.front());
+          q.pop();
+      }
+      while(s.size()!=0){
+          int element = s.top();
+          s.pop();
+          q.push(element);
+      }
+      return q;
+    }
+};
