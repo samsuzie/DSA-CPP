@@ -1,0 +1,44 @@
+class Solution{
+public:
+    vector <int> rearrangeQueue(queue<int> &q){
+        stack<int>st;
+        vector<int>ans;
+        // push 1st half of queue to stack
+        for(int i =0;i<q.size()/2;i++){
+            int element = q.front();
+            q.pop();
+            st.push(element);
+        }
+        // pop the stack and push to queue
+        while(!st.empty()){
+            int val = st.top();
+            st.pop();
+            q.push(val);
+        }
+        // pop the first half of queue and pop back
+        for(int i =0;i<q.size()/2;i++){
+            int elem = q.front();
+            q.pop();
+            q.push(elem);
+        }
+        // push first half of queue back into stack
+         for(int i =0;i<q.size()/2;i++){
+             int value = q.front();
+             q.pop();
+             st.push(value);
+         }
+         while(!st.empty()){
+             int num = st.top();
+             st.pop();
+             q.push(num);
+             num = q.front();
+             q.pop();
+             q.push(num);
+         }
+       while(!q.empty()){
+           ans.push_back(q.front());
+           q.pop();
+       }
+       return ans;
+    }
+};
