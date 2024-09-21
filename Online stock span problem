@@ -1,0 +1,20 @@
+class StockSpanner {
+    stack<pair<int,int>>st;
+public:
+    StockSpanner() {
+    }
+    
+    int next(int price) {
+        if(st.size()==0){
+            st.push({price,1});
+            return 1;
+        }
+        int c=1;
+        while((!st.empty())&& (st.top().first<=price)){
+            c = c+ st.top().second;
+            st.pop();
+        }
+        st.push({price,c});
+        return c;
+    }
+};
