@@ -1,0 +1,30 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    // Function to find floor of x
+    // n: size of vector
+    // x: element whose floor is to find
+    int findFloor(vector<long long> &v, long long n, long long x) {
+        int start = 0;
+        int ans = -1;
+        int end = n-1;
+        while(start<=end){
+            int mid = (end+start)/2;
+            if(v[mid]>x){
+                end = mid -1;
+            }
+            else {
+                ans = mid;
+                start = mid+1;
+            }
+        }
+        return ans;
+    }
+};
+
+
