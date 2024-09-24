@@ -1,0 +1,12 @@
+Node* getStartNode(Node* tail){
+    if(tail ==NULL){
+        return NULL;
+    }
+    Node*intersection = floydDetectLoop(tail);
+    Node*slow = tail;
+    while(slow!= intersection){
+        slow = slow->next;
+        intersection = intersection->next;
+    }
+    return slow;
+}
