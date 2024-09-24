@@ -1,0 +1,20 @@
+Node* floydDetectLoop(Node*& head){
+    if(head==NULL){
+        return NULL;
+    }
+    Node*slow = head;
+    Node*fast = head;
+    while(fast!=NULL && slow!=NULL){
+        fast = fast->next;
+        if(fast!=NULL){
+            fast=fast->next;
+        }
+        slow = slow->next;
+        if(slow==fast){
+            cout<<"present at"<<slow->data<<endl;
+            return slow;
+
+        }
+    }
+    return false;
+}
