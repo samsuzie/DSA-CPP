@@ -1,0 +1,64 @@
+/*************************************************
+    
+    class Node {
+        public :
+
+        int data;
+        Node *next;
+
+        Node(int data) {
+            this -> data = data;
+            this -> next = NULL;
+        }
+    };
+
+*************************************************/
+// cycle detection
+Node* floydDetectalgo(Node *head){
+  if(head==NULL){
+    return NULL;
+  }
+    Node*slow = head;
+    Node*fast = head;
+    while(slow!=NULL &&  fast!=NULL && fast->next!=NULL){
+      fast = fast->next->next;
+      slow = slow->next;
+      if(slow==fast){
+        return slow;
+      }
+    }
+    return NULL;
+}
+// starting point of cirlce
+Node*startingNode(Node* head){
+  if(head==NULL){
+    return NULL;
+  }
+  Node*intersect = floydDetectalgo(head);
+  if(intersect==NULL){
+    return NULL;
+  }
+  Node*slow=head;
+  while(slow!=intersect){
+    slow=slow->next;
+    intersect = intersect->next;
+  }
+  return slow;
+}
+
+Node *removeLoop(Node *head)
+{
+    if(head==NULL)
+      return NULL;
+    Node* temp = startingNode(head);
+    if(temp==NULL){
+      return head;
+    }
+    Node* detect = temp;
+    while(detect->next!=temp){
+      detect=detect->next;
+    }
+    detect->next = NULL;
+    return head;
+    
+}
