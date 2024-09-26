@@ -1,0 +1,70 @@
+class Solution {
+  private:
+  Node* reverse(Node*head){
+    Node*prev = NULL;
+    Node*curr = head;
+    while(curr!=NULL){
+        Node*forward = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = forward;
+    }
+    return prev;
+}
+void insertAtTail(Node*&head , Node* &tail , int val){
+    Node* temp = new Node(val);
+    if(head==NULL){
+    //   empty list
+      head =temp;
+      tail = temp;
+      return ;
+    }
+    else{
+        tail->next = temp;
+        tail = temp;
+    }
+}
+Node* add(Node* num1, Node* num2){
+    int carry = 0;
+    Node* ansHead=NULL;
+    Node* ansTail = NULL;
+    while(num1!=NULL || num2!=NULL || carry!=0){
+        int val1=0;
+        if(num1!=NULL){
+            val1 = num1->data;
+        }
+        int val2 = 0;
+        if(num2!=NULL){
+            val2 = num2 ->data;
+        }
+        int sum = carry + val1+val2;
+        int digit = sum%10;
+        // // create node for digit 
+        // Node* temp = new Node(digit);
+        // create node and add answer in LL
+        insertAtTail(ansHead,ansTail,digit);
+        carry = sum/10;
+        if(num1!=NULL){
+        num1 = num1 ->next;
+        }
+        if(num2!=NULL){
+        num2 = num2->next;
+        }
+    }
+
+    return ansHead;
+}
+  public:
+    // Function to add two numbers represented by linked list.
+    Node* addTwoLists(Node* num1, Node* num2) {
+        // code here
+        // reverse LL
+        num1 = reverse(num1);
+        num2 = reverse(num2);
+        // step2 - add two LL
+        Node* ans = add(num1 , num2);
+        // step3  
+        ans = reverse(ans);
+        return ans;
+    }
+};
