@@ -1,0 +1,38 @@
+class Solution {
+  private:
+  Node *merge(Node *&l1 , Node *&l2){
+      Node *dummyNode = new Node (-1);
+      Node *temp = dummyNode;
+      while(l1!=NULL && l2!=NULL){
+          if(l1->data<l2->data){
+              temp->bottom = l1;
+              temp = l1;
+              l1 = l1->bottom;
+          }
+          else{
+              temp->bottom = l2;
+              temp = l2;
+              l2 = l2->bottom ;
+          }
+          temp->next = NULL;
+      }
+      if(l1!=NULL){
+          temp->bottom = l1;
+      }
+      if(l2!=NULL){
+          temp->bottom = l2;
+      }
+      Node *head = dummyNode->bottom;
+      return head;
+  }
+  public:
+    // Function which returns the  root of the flattened linked list.
+    Node *flatten(Node *root) {
+        if(root == NULL || root->next == NULL){
+            return root;
+        }
+        Node *mergedhead = flatten(root->next);
+        root = merge(root,mergedhead);
+        return root;
+    }
+};
