@@ -1,0 +1,15 @@
+bool searchInBST(BinaryTreeNode<int> *root, int x) {
+    // base cadse
+    if(root==NULL){
+        return false;
+    }
+    if(x == root->data){
+        return true;
+    }
+    if(x<root->data){
+        searchInBST(root->left,x);
+    }
+    else{
+        searchInBST(root->right,x);
+    }
+}
