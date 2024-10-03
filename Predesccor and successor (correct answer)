@@ -1,0 +1,70 @@
+void findPreSuc(TreeNode* root, TreeNode*& pre, TreeNode*& suc, int key)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+
+    TreeNode* temp = root;
+    while(temp != NULL && temp -> data != key)
+    {
+        if(key < temp -> data)
+        {
+            suc = temp;
+            temp = temp -> left;
+        }
+        else
+        {
+            pre = temp;
+            temp = temp -> right;
+        }
+    }
+
+    if (temp == NULL)
+    {
+        return;
+    }
+    
+    TreeNode* leftTree = temp -> left;
+    TreeNode* rightTree = temp -> right;
+
+    while(leftTree != NULL)
+    {
+        pre = leftTree;
+        leftTree = leftTree -> right;
+    }
+
+    while(rightTree != NULL)
+    {
+        suc = rightTree;
+        rightTree = rightTree -> left;
+    }
+    
+}
+
+pair<int, int> predecessorSuccessor(TreeNode *root, int key)
+{
+   TreeNode* pre = NULL;
+   TreeNode* suc = NULL;
+
+   findPreSuc(root, pre, suc, key);
+   pair<int, int> ans;
+
+   if(pre == NULL)
+   {
+       ans.first = -1;
+   }
+   else
+   {
+       ans.first = pre -> data;
+   }
+
+   if(suc == NULL)
+   {
+       ans.second = -1;
+   } else {
+       ans.second = suc->data;
+   }
+
+   return ans;
+}
