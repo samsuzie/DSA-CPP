@@ -1,0 +1,22 @@
+int traverse(Node* root ,  int input , int &ceilVal){
+    if(root == NULL){
+        return NULL;
+    }
+    if(root->data == input){
+        ceilVal = root->data;
+        return ceilVal;
+    }
+    else if(root->data > input){
+        ceilVal = root->data ;
+        traverse(root->left,input,ceilVal);
+    }
+    else{
+        traverse(root->right, input,ceilVal);
+    }
+}
+int findCeil(Node* root, int input) {
+    if (root == NULL) return -1;
+    int ceilVal=-1;
+    traverse(root,input,ceilVal);
+    return ceilVal;
+}
