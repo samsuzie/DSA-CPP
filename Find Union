@@ -1,0 +1,49 @@
+vector<int> findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        vector<int>vt;
+        int i=0;
+        int j=0;
+        int k =0;
+        if(arr1[0]<=arr2[0]){
+            vt.push_back(arr1[0]);
+            i++;
+        }
+        else{
+            vt.push_back(arr2[0]);
+            j++;
+        }
+        while(i<n && j<m){
+            if(arr1[i] <= arr2[j] && vt[k]!=arr1[i]){
+                vt.push_back(arr1[i]);
+                i++;
+                k++;
+            }
+            if(vt[k]==arr1[i]){
+                i++;
+            }
+            else if(arr1[i]>arr2[j] && vt[k]!=arr2[j]){
+                vt.push_back(arr2[j]);
+                j++;
+                k++;
+            }
+            if(vt[k]==arr2[j]){
+                j++;
+            }
+        }
+        while(i<n){
+            if(vt[k]!=arr1[i]){
+            vt.push_back(arr1[i]);
+            k++;
+            }
+            i++;
+        }
+        while(j<m){
+            if(vt[k]!=arr2[j]){
+            vt.push_back(arr2[j]);
+            k++;
+            }
+            j++;
+        }
+        return vt;
+    }
+};
