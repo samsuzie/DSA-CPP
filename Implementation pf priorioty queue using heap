@@ -1,0 +1,11 @@
+class Solution {
+  public:
+    int extractMax() {
+        // your code here
+        int max = H[0];
+        H[0] = H[s];
+        s--;
+        shiftDown(0);
+        return max;
+    }
+};
