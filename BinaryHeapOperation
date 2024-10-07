@@ -1,0 +1,47 @@
+int MinHeap::extractMin() 
+{
+    if(heap_size<=0){
+        return -1;
+    }
+    
+    int res = harr[0];
+    harr[0] = harr[heap_size-1];
+    heap_size--;
+    if(heap_size>1){
+        MinHeapify(0);
+    }
+    return res;
+    
+}
+
+//Function to delete a key at ith index.
+void MinHeap::deleteKey(int i)
+{
+    if(i>=heap_size){
+        return;
+    }
+    decreaseKey(i,INT_MIN);
+    extractMin();
+    
+}
+
+//Function to insert a value in Heap.
+void MinHeap::insertKey(int k) 
+{
+    if(heap_size==capacity){
+        return;
+    }
+    heap_size++;
+    harr[heap_size-1] = k;
+    int index = heap_size-1;
+    while(index>0){
+    int p =  parent(index);
+    if(harr[p]>harr[index]){
+        swap(harr[p],harr[index]);
+        index = p;
+    }
+    else{
+        return;
+    }
+}
+}
