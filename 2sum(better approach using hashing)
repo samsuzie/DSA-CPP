@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int,int>mpp;
+        vector<int>ans;
+        for(int i =0;i<nums.size();i++){
+            int a = nums[i];
+            int required = target - a;
+            // the  remaining required is there in the map
+            if(mpp.find(required)!=mpp.end()){
+                ans.push_back(mpp[required]);
+                ans.push_back(i);
+            }
+            mpp[a] = i;
+        }
+        return ans;
+    }
+};
