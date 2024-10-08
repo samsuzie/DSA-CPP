@@ -1,0 +1,59 @@
+class Solution {
+  public:
+  int countNode(struct Node* tree){
+    //   base case
+    if(tree == NULL){
+        return 0;
+    }
+    int ans = 1+countNode(tree->left)+countNode(tree->right);
+    return ans;
+  }
+  bool isCBT(struct Node*tree , int index, int countNode){
+      if(tree==NULL){
+          return true;
+      }
+      if(index>=countNode){
+          return false;
+      }
+      else{
+          bool left = isCBT(tree->left,2*index+1,countNode);
+          bool right= isCBT(tree->right,2*index+2,countNode);
+          return (left&&right);
+      }
+  }
+  bool isMax(struct Node*tree){
+    //   leafNode
+    if(tree->left == NULL && tree->right == NULL){
+        return true;
+    }
+    // only left child exists
+    if(tree->right == NULL){
+        if(tree->data > tree->left->data){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    // both child exists
+    else{
+        bool left = isMax(tree->left);
+        bool right = isMax(tree->right);
+        if(left && right &&(tree->data>tree->left->data && tree->data>tree->right->data)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+  }
+    bool isHeap(struct Node* tree) {
+        int index = 0;
+        int totalCount = countNode(tree);
+        if(isCBT(tree,index,totalCount)&&(isMax(tree))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
