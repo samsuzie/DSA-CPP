@@ -1,0 +1,54 @@
+#include<iostream>
+#include<map>
+#include<unordered_map>
+using namespace std;
+int main(){
+  // creation 
+  map<string , int>m;
+  // insertion
+
+  // 1
+  pair<string,int>p = make_pair("babbar",3);
+  m.insert(p);
+
+  // 2
+  pair<string,int>pair2("love",2);
+  m.insert(pair2);
+
+  // 3
+  m["mera"]=1;
+  // the below comment will overwrite the value pair by writing 2
+  m["mera"]=2;
+
+  // search
+  // 1
+  cout<<m["mera"]<<endl;
+  // 2
+  cout<<m.at("babbar")<<endl;
+  // trying to acess a key that we haven't inserted only
+  // cout<<m.at("unkownKey")<<endl;
+
+  // cout<<m["unkownKey"]<<endl;
+
+  // size
+  cout<<m.size()<<endl;
+  // to check presence
+  cout<<m.count("love")<<endl;
+
+  // erase
+  m.erase("love");
+  cout<<m.size()<<endl;
+
+  // to acess map
+  for(auto i:m){
+    cout<<i.first<<" "<<i.second<<endl;
+  }
+
+  // iterator
+  map<string,int>::iterator it = m.begin();
+  while(it != m.end()){
+    cout<<it->first<<" "<<it->second<<endl;
+    it++;
+  }
+  
+}
