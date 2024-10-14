@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+     vector<int>negatives;
+     vector<int>positives;
+     for(auto x:nums){
+        if(x>=0){
+            positives.push_back(x);
+        }
+        else{
+            negatives.push_back(x);
+        }
+        }
+        vector<int>ans;
+        // merge both the arrays;
+        for(int i =0;i<positives.size();i++){
+            ans.push_back(positives[i]);
+            ans.push_back(negatives[i]);
+        }
+        return ans;
+    }
+};
