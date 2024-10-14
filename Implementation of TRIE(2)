@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+class TriNode{
+    public:
+    int ew;
+    int pw;
+    // pw: prefix with
+    // ew: end with
+    TriNode*children[26];
+    TriNode(){
+        ew =0;
+        pw = 0;
+        for(int i =0;i<26;i++){
+            children[i] = NULL;
+        }
+    }
+};
+class Trie{
+
+    public:
+    TriNode *root;
+    Trie(){
+        root = new TriNode();
+    }
+
+    void insert(string &word){
+        TriNode*node = root;
+        for(char ch:word){
+            int index = ch-'a';
+            if(node->children[index]==NULL){
+                node->children[index] = new TriNode();
+            }
+            node = node->children[index];
+            node->pw+=1;
+        }
+        node->ew+=1;
+    }
+
+    int countWordsEqualTo(string &word){
+        TriNode*node = root;
+        for(char c:word){
+            int index = c-'a';
+            if(node->children[index]==NULL){
+                return 0;
+            }
+            node = node->children[index];
+        }
+        return node->ew;
+    }
+
+    int countWordsStartingWith(string &word){
+        TriNode*node = root;
+        for(char c:word){
+            int index = c-'a';
+            if(node->children[index]==NULL){
+                return 0;
+            }
+            node = node->children[index];
+        }
+        return node->pw;
+    }
+    void erase(string &word){
+       TriNode*node = root;
+       std::vector<TriNode*>nodes;
+       for(char ch:word){
+           int index = ch-'a';
+           if(node->children[index]==NULL){
+               return ;
+           }
+           nodes.push_back(node);
+           node = node->children[index];
+           node->pw -=1;
+       }
+       node->ew -=1;
+    }
+};
