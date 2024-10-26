@@ -1,0 +1,45 @@
+#include<unordered_map>
+#include<list>
+bool checkCycleDFS(int node,unordered_map<int,bool>&visited,unordered_map<int,bool>&dfsvisited,unordered_map<int,list<int>>&adj){
+  visited[node]=true;
+  dfsvisited[node]=true;
+
+
+  // check for all the neighbors of the node
+  for(auto neighbor:adj[node]){
+    if(!visited[neighbor]){
+      bool cycledetected = checkCycleDFS(neighbor, visited, dfsvisited, adj);
+      if(cycledetected){
+        return true;
+      }
+    }
+    else if(dfsvisited[neighbor]){
+      return true;;
+    }
+  }
+  dfsvisited[node]=false;
+  return false;
+}
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+  // create adjacency list
+  unordered_map<int,list<int>>adj;
+  for(int i =0;i<edges.size();i++){
+    int u = edges[i].first;
+    int v = edges[i].second;
+
+    // since it is a directed graph we only have to make an edge from u to v and not v to u very important keep that in mind
+    adj[u].push_back(v);
+  }
+  // since we have made the adjacency list call dfs for all component// we are starting the node form 1 because in input form the starting node is from 1 to n
+  unordered_map<int,bool>visited;
+  unordered_map<int,bool>dfsvisited;
+  for(int i =1;i<=n;i++){
+    if(!visited[i]){
+      bool cycleFound = checkCycleDFS(i,visited,dfsvisited,adj);
+      if(cycleFound){
+        return true;
+      }
+    }
+  }
+  return false;
+}
