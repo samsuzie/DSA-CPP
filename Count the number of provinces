@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void dfs(int node,unordered_map<int,bool>&visited,unordered_map<int , list<int>>&adjLs){
+        visited[node]=1;
+        for(auto neighbor:adjLs[node]){
+            if(!visited[neighbor]){
+            dfs(neighbor,visited,adjLs);
+            }
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size();
+        // we will make the adjacency list first from the adjacency matri
+        unordered_map<int , list<int>>adjLs;
+        for(int i =0;i<isConnected.size();i++){
+            for(int j =0;j<isConnected[0].size();j++){
+                if(isConnected[i][j]==1 && i!=j){
+                    adjLs[i].push_back(j);
+                    adjLs[j].push_back(i);
+                }
+            }
+        }
+        int count = 0;
+        unordered_map<int,bool>visited;
+        for(int i =0;i<n;i++){
+            if(!visited[i]){
+                dfs(i,visited,adjLs);
+                count++;
+            }
+        }
+        return count;
+    }
+};
