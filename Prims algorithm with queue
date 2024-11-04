@@ -1,0 +1,44 @@
+{
+	public:
+	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+    int spanningTree(int V, vector<vector<int>> adj[])
+    {
+        // define the priority queue first
+        // SPACE - o(e)
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        
+        // visited array
+        // space -o(e)
+        vector<int>vis(V,0);
+        // here  we do not require parent since they are asking for sum only and not mst
+        // so here we will not use parent
+        // {wt,node}
+        pq.push({0,0});
+        int sum =0;
+        // E
+        while(!pq.empty()){
+            // LOG E
+            auto it = pq.top();
+            pq.pop();
+            int node = it.second;
+            int wt = it.first;
+            // if the node is already visited no need to do anythin
+            if(vis[node]==1){
+            continue;
+            }
+            // it is not visited
+            // add it to mst
+            vis[node] = 1;
+            sum+=wt;
+            // get adjacent node
+            // E LOG E
+            for(auto neighbor:adj[node]){
+                int adjnode = neighbor[0];
+                int edW = neighbor[1];
+                if(!vis[adjnode]){
+                    pq.push({edW,adjnode});
+                }
+            }
+        }
+        return sum;
+    }
