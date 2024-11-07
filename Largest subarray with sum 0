@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    int maxLen(vector<int>& arr) {
+        // optimal approach
+        int n = arr.size();
+        int len=0;
+        int presum = 0 ;
+        unordered_map<int,int>mpp;
+        for(int i =0;i<n;i++){
+            presum = presum +arr[i];
+            if(presum == 0){
+                len = i+1;
+            }
+            if(mpp.find(presum) == mpp.end()){
+                mpp[presum]=i;
+            }
+            else{
+                len = max(len,i-mpp[presum]);
+            }
+        }
+        return len;
+    }
+};
