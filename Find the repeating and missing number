@@ -1,0 +1,23 @@
+vector<int> findTwoElement(vector<int>& arr) {
+        // to find the number that is appearing twice
+        vector<int>ans;
+        // to find the number that is appearing twice
+        // we will use map to find the number that is appearing twice
+        unordered_map<int,int>mpp;
+        for(int i=0;i<arr.size();i++){
+            mpp[arr[i]]++;
+        }
+        int missing = 0;
+        int repeating = 0;
+        int n = arr.size();
+        for(int i=1;i<=n;i++){
+            if(mpp[i]==0){
+                missing = i;
+            }
+            if(mpp[i]==2){
+                repeating = i;
+            }
+        }
+        ans.push_back(repeating);
+        ans.push_back(missing);
+        return ans;
