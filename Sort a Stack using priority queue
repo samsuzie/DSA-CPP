@@ -1,0 +1,12 @@
+void SortedStack :: sort()
+{
+   priority_queue<int,vector<int>,greater<int>>heap;
+   while(!s.empty()){
+       heap.push(s.top());
+       s.pop();
+   }
+   while(!heap.empty()){
+       s.push(heap.top());
+       heap.pop();
+   }
+}
