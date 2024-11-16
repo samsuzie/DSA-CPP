@@ -1,0 +1,17 @@
+#include <bits/stdc++.h> 
+void insertatBottom(stack<int>& myStack,int x){
+    if(myStack.empty()){
+        return myStack.push(x);
+    }
+    int head = myStack.top();
+    myStack.pop();
+    insertatBottom(myStack, x);
+    myStack.push(head);
+
+}
+stack<int> pushAtBottom(stack<int>& myStack, int x) 
+{
+    insertatBottom(myStack,x);
+    return myStack;
+
+}
