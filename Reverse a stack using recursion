@@ -1,0 +1,20 @@
+public:
+void insertatbottom(stack<int> &St,int top){
+    if(St.empty()){
+        return St.push(top);
+    }
+    int head = St.top();
+    St.pop();
+    insertatbottom(St,top);
+    St.push(head);
+    
+}
+    void Reverse(stack<int> &St){
+        if(St.empty()){
+            return ;
+        }
+        int top = St.top();
+        St.pop();
+        Reverse(St);
+        insertatbottom(St,top);
+    }
