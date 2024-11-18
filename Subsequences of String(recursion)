@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+void solve(int index,string op,vector<string>&ans,string &str){
+	if(index>=str.length()){
+        if (op.length()> 0) {
+            ans.push_back(op);
+          }
+		  return ;
+        }
+	// exclude
+	solve(index+1,op,ans,str);
+	char word = str[index];
+	op.push_back(word);
+	solve(index+1,op, ans, str);
+}
+vector<string> subsequences(string str){
+	vector<string>ans;
+	string op ="";
+	int index = 0;
+	solve(index,op,ans,str);
+	return ans;
+}
