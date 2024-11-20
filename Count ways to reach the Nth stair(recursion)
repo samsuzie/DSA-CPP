@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+#define MOD 1000000007 
+int solve(int nStairs, int i){
+    if(i==nStairs){
+        return 1;
+    }
+    if(i>nStairs){
+        return 0 ;
+    }
+    // recuurence relation 
+    return (solve(nStairs,i+1)+solve(nStairs, i+2))%MOD;
+}
+int countDistinctWays(int nStairs) {
+    int ans = solve(nStairs,0);
+    return ans;
+}
