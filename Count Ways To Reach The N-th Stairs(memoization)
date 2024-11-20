@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+#define MOD 1000000007
+int calculate(int nStairs,vector<int>&dp){
+    if(nStairs<=1){
+        return 1;
+    }
+    if(dp[nStairs]!=-1){
+        return dp[nStairs];
+    }
+    dp[nStairs] = (calculate(nStairs-1, dp)+calculate(nStairs-2, dp))%MOD;
+    return dp[nStairs];
+} 
+int countDistinctWays(int nStairs) {
+    vector<int>dp(nStairs+1,-1);
+    return calculate(nStairs,dp);
+}
