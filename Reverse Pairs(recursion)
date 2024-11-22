@@ -1,0 +1,56 @@
+class Solution {
+public:
+    void merge(int start,int mid,int end , vector<int>&nums){
+        int i = start;
+        int j = mid+1;
+        vector<int>b;
+        while(i<=mid && j<=end){
+            if(nums[i]<nums[j]){
+                b.push_back(nums[i]);
+                i++;
+            }
+            else{
+                b.push_back(nums[j]);
+                j++;
+            }
+        }
+        while(i<=mid){
+            b.push_back(nums[i]);
+            i++;
+        }
+        while(j<=end){
+            b.push_back(nums[j]);
+            j++;
+        }
+        for(int k = start;k<=end;k++){
+            nums[k] = b[k-start];
+        }
+    }
+    int countpairs(int start, int mid, int end , vector<int>&nums){
+        int count =0;
+        int right = mid+1;
+        for(int i =start;i<=mid;i++){
+            while(right<=end && nums[i]>2*(long long)nums[right]){
+                right++;
+            }
+        count += (right-(mid+1));
+        }
+        return count;
+    }
+    int mergesort(int start,int end, vector<int>&nums){
+        int count =0;
+        if(start>=end){
+            return 0;
+        }
+        int mid = start+(end-start)/2;
+        count += mergesort(start,mid,nums);
+        count += mergesort(mid+1,end,nums);
+        count+=countpairs(start,mid,end,nums);
+        merge(start,mid,end,nums);
+        return count;
+    }
+    int reversePairs(vector<int>& nums) {
+        int n = nums.size();
+        return mergesort(0,n-1,nums);
+    }
+};
