@@ -1,0 +1,31 @@
+ public:
+//  first implement lower bound
+    int lowerbound(vector<int>arr,int m , int x){
+        int low = 0;
+        int high = m-1;
+        int ans = -1;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            if(arr[mid]<x){
+                ans = mid;
+                low = mid+1;
+            }
+            else{
+                high = mid-1;
+            }
+        }
+        return ans;
+    }
+    int rowWithMax1s(vector<vector<int>> &arr) {
+        int n = arr.size();
+        int m = arr[0].size();
+        int row_count =-1;
+        int row_index=-1;
+        for(int i=0;i<n;i++){
+        int one_count = m - lowerbound(arr[i],m,1);
+        if(one_count>row_count){
+            row_count = one_count;
+            row_index = i ;
+        }
+        }
+        return row_index ;
