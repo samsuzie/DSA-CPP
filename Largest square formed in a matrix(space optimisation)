@@ -1,0 +1,29 @@
+public:
+    int solve(vector<vector<int>>& mat,int &maxi){
+        // base case
+         int n = mat.size();
+        int m = mat[0].size();
+        vector<int>curr(m+1,0);
+        vector<int>next(m+1,0);
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=0;j--){
+                int right = curr[j+1];
+                int diagonal = next[j+1];
+                int down = next[j];
+        if(mat[i][j]==1){
+            curr[j] = 1+min(right,min(diagonal,down));
+            maxi = max(maxi,curr[j]);
+        }
+        else{
+            curr[j]=0;
+        }
+        }
+           next=curr;
+        }
+        return maxi;
+    }
+    int maxSquare(vector<vector<int>>& mat) {
+        int maxi =0;
+        solve(mat,maxi);
+        return maxi;
+    }
