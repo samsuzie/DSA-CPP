@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int solve(vector<int>& obstacles,int currLane,int currpos,vector<vector<int>>&dp){
+        int n = obstacles.size()-1;
+        if(currpos == n){
+            return 0;
+        }
+        if(dp[currLane][currpos]!=-1){
+            return dp[currLane][currpos];
+        }
+        if(obstacles[currpos+1]!=currLane){
+        // move forward
+        return solve(obstacles,currLane,currpos+1,dp);
+        }
+        else{
+            // sideways
+            int ans = INT_MAX; 
+            for(int i=1;i<=3;i++){
+                // jis position p obstacle pada hai wo not equal to i hona chaayie
+                if(currLane!=i && obstacles[currpos]!=i){
+                    ans = min(ans,1+solve(obstacles,i,currpos,dp));
+                }
+            }
+            dp[currLane][currpos]=ans;
+            return dp[currLane][currpos];
+        }
+    }
+    int minSideJumps(vector<int>& obstacles) {
+        vector<vector<int>>dp(4,vector<int>(obstacles.size(),-1));
+        return solve(obstacles,2,0,dp);
+    }
+};
