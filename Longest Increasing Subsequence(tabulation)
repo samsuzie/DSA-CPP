@@ -1,0 +1,23 @@
+ int solve(int n,vector<int>& arr){
+    //   base case
+    vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+    for(int curr = n-1;curr>=0;curr--){
+        for(int prev = curr-1;prev>=-1;prev--){
+            // include
+    int take=0;
+    if(prev==-1 || arr[curr]>arr[prev]){
+        take = 1+ dp[curr+1][curr+1];
+    }
+    // exclude
+    int nottake = dp[curr+1][prev+1];
+    dp[curr][prev+1] = max(take,nottake);
+   }
+        }
+        return dp[0][0];
+    }
+    
+    // Function to find length of longest increasing subsequence.
+    int longestSubsequence(vector<int>& arr) {
+        int n = arr.size();
+       return solve(n,arr);
+    }
