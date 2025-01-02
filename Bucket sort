@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+       unordered_map<char,int>freq;
+       for(auto ch:s){
+        freq[ch]++;
+       }
+    //    below we are doing s.length()+1 because arrays in c++ are 0 indexed
+       vector<vector<char>>bucketArray(s.length()+1);
+       for(auto[ch,fq]:freq){
+        bucketArray[fq].push_back(ch);
+       }
+       string ans="";
+       for(int fq = s.length();fq>=1;fq--){
+        for(auto ch:bucketArray[fq]){
+            ans.append(fq,ch);
+        }
+       }
+       return ans;
+    }
+};
