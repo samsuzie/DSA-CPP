@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isPalindrome(const string &strings){
+        int left=0;
+        int right =strings.length()-1;
+        while(left<right){
+            if(strings[left]!=strings[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+    string longestPalindrome(string s) {
+        int n = s.length();
+        if(n==1){
+            return s;
+        }
+        int maxlen=1;
+        string str = s.substr(0,1);
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<=n;j++){
+                if(j-i>maxlen && isPalindrome(s.substr(i,j-i))){
+                    maxlen = j-i;
+                    str = s.substr(i,j-i);
+                }
+            }
+        }
+        return str;
+    }
+};
