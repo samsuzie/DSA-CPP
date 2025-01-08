@@ -1,0 +1,32 @@
+class Solution {
+  public:
+   int upto(string&s,int k){
+       int n = s.length();
+       int left=0;
+       int right=0;
+       int cnt=0;
+       long long ans =0;
+       vector<int>mpp(26,0);
+       while(right<n){
+        //   to find the index
+           mpp[s[right]-'a']++;
+           if(mpp[s[right]-'a']==1){
+               cnt++;
+           }
+           while(cnt>k){
+               mpp[s[left]-'a']--;
+               if(mpp[s[left]-'a']<=0){
+                   cnt--;
+               }
+               left++;
+           }
+           ans= ans+right-left+1;
+           right++;
+       }
+       return ans ;
+   }
+    int countSubstr(string& s, int k) {
+        // code here
+        return upto(s,k)-upto(s,k-1);
+    }
+};
