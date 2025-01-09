@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int beautySum(string s) {
+        // step1 compute all the substrings
+        int n = s.length();
+        int ans =0;
+        for(int i=0;i<n;i++){
+            vector<int>mpp(26,0);
+            for(int j=i;j<n;j++){
+                mpp[s[j]-'a']++;
+                int maxi = INT_MIN;
+                int mini = INT_MAX;
+                for(int i=0;i<mpp.size();i++){
+                    if(mpp[i]>0){
+                        // this condition is necesaary because is we will take 0 frequency also during mini it willl result it error
+                maxi = max(maxi,mpp[i]);
+                mini = min(mini,mpp[i]);
+                    }
+        }
+        ans+=maxi-mini;
+            }
+        }
+        return ans ;
+    }
+};
