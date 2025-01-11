@@ -1,0 +1,28 @@
+class Solution {
+  public:
+    int lengthOfLongestAP(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        if(n<=2){
+            return n;
+        }
+        int ans =0;
+        unordered_map<int,unordered_map<int,int>>dp(n+1);
+        // we are pointing i at 1 because if we will point it at 0 then both i 
+        // and j are pointing to same element which is cannot be the case in the 
+        // ap 
+        for(int i=1;i<n;i++){
+            for(int j =0;j<i;j++){
+               int diff = arr[i]-arr[j];
+            //   cnt 1 means ki abhi tak aapke ap mein sirf 1 element pada hai
+               int cnt =1;
+            //   check if answer already present
+            if(dp[j].count(diff)){
+                cnt = dp[j][diff];
+            }
+            dp[i][diff]=1+cnt;
+            ans = max(ans,dp[i][diff]);
+               
+            }
+        }
+        return ans;
